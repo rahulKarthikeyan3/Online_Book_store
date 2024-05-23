@@ -1,0 +1,56 @@
+package org.rahul.userBook.dao;
+
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
+
+import org.rahul.userBook.dto.Book;
+import org.rahul.userBook.dto.User;
+
+public class BookDao {
+	EntityManagerFactory factory = Persistence.createEntityManagerFactory("dev");
+	EntityManager manager = factory.createEntityManager();
+	
+	public Book saveBook(Book book , int user_id) {
+		User user=manager.find(User.class,user_id );
+		EntityTransaction transaction=manager.getTransaction();
+		if(user!=null) {
+			book.setUser(user);
+			user.getBook().add(book);
+			manager.persist(book);
+			transaction.begin();
+			transaction.commit();
+			return book;
+		}
+		return null;
+	}
+	
+	
+	public Book updateBook(Book book) {
+		EntityTransaction transaction=manager.getTransaction();
+		Book b=manager.find(Book.class,book.getBook_id());
+		if(b!=null) {
+			b.setBook_id(book.getBook_id());
+			b.setTitle(book.getTitle());
+			b.setAuthor(book.getAuthor());
+			b.setPrice(book.getPrice());
+			b.setQuantity(book.getQuantity());
+			b.setDate(book.getDate());
+			transaction.begin();
+			transaction.commit();
+		}
+		return book;
+	}
+
+	public List<Book> findBookByUserId(int user_id){
+		Query q=manager.createQuery("select u.book from User b where u.user_id=?1");
+		q.setParameter(1, user_id);
+		return q.getResultList();
+	}
+	
+	
+}

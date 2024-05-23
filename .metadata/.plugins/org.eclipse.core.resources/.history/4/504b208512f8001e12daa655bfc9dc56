@@ -1,0 +1,5 @@
+package org.rahul.userBook.dto;
+
+public class User {
+
+}

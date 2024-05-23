@@ -1,0 +1,35 @@
+package org.rahul.userBook.controller;
+
+import java.awt.print.Book;
+import java.util.Scanner;
+
+import org.rahul.userBook.dao.BookDao;
+
+public class BookController {
+	public static void main(String[] args) {
+		BookDao bookDao=new BookDao();
+		Scanner sc=new Scanner(System.in);
+		System.out.println("save Books");
+		System.out.println("update Books");
+		System.out.println("find Book By User Id:");
+		
+		
+		
+		switch (sc.nextInt())) {
+		case 1:
+		{
+			Book book=new Book();
+			System.out.println("Enter the book_id:");
+			int user_id=sc.nextInt();
+			System.out.println("Enter  the title");
+			
+		}
+			
+			break;
+
+		default:
+			break;
+		}
+	}
+
+}

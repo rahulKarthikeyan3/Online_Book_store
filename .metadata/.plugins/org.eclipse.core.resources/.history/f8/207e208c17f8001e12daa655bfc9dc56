@@ -1,0 +1,5 @@
+package org.rahul.userBook.dao;
+
+public class UserDao {
+
+}

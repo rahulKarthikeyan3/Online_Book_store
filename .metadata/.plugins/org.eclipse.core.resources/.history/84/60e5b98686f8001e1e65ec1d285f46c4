@@ -1,0 +1,50 @@
+package org.rahul.userBook.dao;
+
+import java.awt.print.Book;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
+
+import org.rahul.userBook.dto.User;
+
+public class BookDao {
+	EntityManagerFactory factory = Persistence.createEntityManagerFactory("dev");
+	EntityManager manager = factory.createEntityManager();
+	
+	public Book saveBook(Book book, int user_id) {
+		User user=manager.find(User.class,user_id );
+		EntityTransaction transaction=manager.getTransaction();
+		if(user!=null) {
+			user.getBook().add(book);
+			manager.persist(book);
+			transaction.begin();
+			transaction.commit();
+			return book;
+		}
+		return null;
+	}
+	
+	
+	public Book updateBook(Book book) {
+		EntityTransaction transaction=manager.getTransaction();
+		Book b=manager.find(Book.class,book.);
+		if(b!=null) {
+		
+			transaction.begin();
+			transaction.commit();
+		}
+		return book;
+	}
+
+	public List<Book> findBookByUserId(int User_id){
+		Query q=manager.createQuery("select u.book from user b where u.user_id=?1");
+		q.setParameter(1, User_id);
+		return q.getResultList();
+	}
+	
+	
+}

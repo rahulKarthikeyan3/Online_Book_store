@@ -1,0 +1,5 @@
+package org.rahul.userBook.controller;
+
+public class User {
+
+}
